@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Layout from '../core/Layout';
-import { API } from '../config';
 import { Link } from 'react-router-dom';
-
+import { signup } from '../auth/index'
 const Signup = () => {
+    // values is a state variable with value of an obejct
     const [values, setValues] = useState({
         name: '',
         email: '',
@@ -12,13 +12,17 @@ const Signup = () => {
         success: false,
     });
 
+    // destructuring the state variables
     const { name, email, password, error, success } = values;
+
+    // when any of the input changes, it changes state values and in turn, it controls the value for that input
     const handleChange = (event) => {
         const { name, value } = event.target;
         // to update object's state, we need to use this kind of notation(Spread Operator)
         setValues({ ...values, error: false, success: false, [name]: value });
     }
 
+    // when submit button is clicked, below method is called
     const clickSubmit = async (event) => {
         event.preventDefault();
         const data = await signup({ name, email, password });
@@ -28,21 +32,8 @@ const Signup = () => {
             setValues({ ...values, name: '', email: '', password: '', error: '', success: true });
         }
     }
-    const signup = async (user) => {
-        const rawResponse = await fetch(`${API}/signup`, {
-            method: "POST",
-            headers: {
-                // API will respond with json data, so we need to accept json data
-                Accept: 'application/json',
-                // we tell the back-end that we are sending json data
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
-        });
-        const response = rawResponse.json();
-        return response;
 
-    }
+    // signup form
     const signupForm = () => {
         return (
             <form onSubmit={clickSubmit}>
@@ -63,6 +54,7 @@ const Signup = () => {
         )
     }
 
+    // showError component
     const showError = () => {
         return (
             <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
@@ -70,6 +62,8 @@ const Signup = () => {
             </div>
         );
     }
+
+    // showSuccess component
     const showSuccess = () => {
         return (
             <div className="alert alert-success" style={{ display: success ? '' : 'none' }}>
@@ -78,6 +72,7 @@ const Signup = () => {
         );
     }
 
+    // this will be rendered on the screen.
     return (
         <Layout title="Signup" description="signup to Node React Ecommerce App" className="container col-md-8 offset-md-2">
             {showError()}
@@ -87,4 +82,4 @@ const Signup = () => {
     )
 }
 
-export default Signup
+export default Signup;
