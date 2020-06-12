@@ -30,6 +30,7 @@ const Signin = () => {
         setValues({ ...values, [name]: value, error: false });
     }
 
+    //destructuring state variables
     const { password, email, error, loading, redirectToHome } = values;
 
     // signin form
@@ -58,7 +59,7 @@ const Signin = () => {
         );
     }
 
-    // showSuccess component
+    // showLoading component
     const showLoading = () => {
         return (
             <div className="alert alert-success" style={{ display: loading ? '' : 'none' }}>
