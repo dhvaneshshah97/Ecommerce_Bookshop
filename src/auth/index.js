@@ -37,3 +37,24 @@ export const authenticate = (data) => {
         localStorage.setItem('jwt',JSON.stringify(data));
     }
 }
+
+export const signout = async (history) => {
+    //first, remove signin details from localstorage
+    if (window !== undefined){
+        localStorage.removeItem('jwt');
+    }
+
+    // then, redirect to signin/home page
+    history.push('/signin');
+
+    // and then, send request to backend which in turn will give message that you can use to display.
+    const rawResponse = await fetch(`${API}/signout`, {
+        method: "GET",
+    });
+
+    // one new thing that I got to know today is that fetch will give you the response in ReadableStream which you can assign as rawResponse, now you have to convert it into json format so you can use the response data, so for that you should call rawResponse.json(), but again this will give you a promise object which again you have to make it into json, so for that you can use another .then() in .then().catch() structure or another await to make it into json.
+    // const response = rawResponse.json();
+    const response =  await rawResponse.json();
+    console.log(response.message);
+    
+}
