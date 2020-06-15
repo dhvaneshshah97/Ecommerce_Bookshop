@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '../core/Layout';
-import { signin } from '../auth/index';
+import { signin, authenticate } from '../auth/index';
 import { Redirect } from 'react-router-dom';
 
 const Signin = () => {
@@ -19,6 +19,7 @@ const Signin = () => {
         if (userData.error) {
             setValues({ ...values, error: userData.error, loading: false });
         } else {
+            await authenticate(userData);
             setValues({ ...values, redirectToHome: true });
         }
 

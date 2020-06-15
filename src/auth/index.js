@@ -31,3 +31,9 @@ export const signin = async (user) => {
     const response = rawResponse.json();
     return response;
 }
+
+export const authenticate = (data) => {
+    if (window !== undefined){
+        localStorage.setItem('jwt',JSON.stringify(data));
+    }
+}
