@@ -58,3 +58,17 @@ export const signout = async (history) => {
     console.log(response.message);
     
 }
+
+export const isAuthenticated = () => {
+    if (typeof window === undefined) {
+        return false;
+    }
+
+    if (localStorage.getItem('jwt')) {
+        // you just have to return something basically so it understands that it does have local storage item with key 'jwt'. You can return either true or the below return value.
+        return JSON.parse(localStorage.getItem('jwt'))  
+    } else {
+        return false
+    }
+
+}
