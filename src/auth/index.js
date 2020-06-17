@@ -32,6 +32,7 @@ export const signin = async (user) => {
     return response;
 }
 
+// below method simply store user data in localstorage when user first time signed in
 export const authenticate = (data) => {
     if (window !== undefined){
         localStorage.setItem('jwt',JSON.stringify(data));
@@ -59,6 +60,8 @@ export const signout = async (history) => {
     
 }
 
+
+// below method is checked whether user is authenticated or not, i.e., user is signed in or not
 export const isAuthenticated = () => {
     if (typeof window === undefined) {
         return false;

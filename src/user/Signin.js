@@ -3,15 +3,15 @@ import Layout from '../core/Layout';
 import { signin, authenticate } from '../auth/index';
 import { Redirect } from 'react-router-dom';
 
-const Signin = () => {
+const Signin = (props) => {
     const [values, setValues] = useState({
-        email: '',
-        password: '',
+        email: 'robert@gmail.com',
+        password: 'robert123',
         error: '',
         loading: false,
         redirectToHome: false,
     });
-
+    // const { from } = props.location.state || '';
     const handleSubmit = async (event) => {
         event.preventDefault();
         setValues({ ...values, error: false, loading: true })
@@ -20,6 +20,9 @@ const Signin = () => {
             setValues({ ...values, error: userData.error, loading: false });
         } else {
             await authenticate(userData);
+            // if( from === '/dashboard') {
+            //     props.history.replace(from);
+            // }
             setValues({ ...values, redirectToHome: true });
         }
 
