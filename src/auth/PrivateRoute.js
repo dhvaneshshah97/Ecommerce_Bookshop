@@ -8,8 +8,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         <Route {...rest} render={(props) =>
             isAuthenticated() ? (<Component {...props} />) : (<Redirect to={{
                 pathname: "/signin",
-                // not sure about this line of code, maybe it is for coming back to this dashboard after signin
-                state: {from: props.location}
+                // below state property is extremely useful. It is for coming back to this dashboard or any other component which require private route(only signed in user can see that page) after signin.
+                state: {
+                    message: `Please sign in to access ${props.location.pathname.slice(1)}`,
+                    from: props.location,
+                }
             }} />)
         }
         />
