@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '../core/Layout';
-import { signin, authenticate } from '../auth/index';
+import { signin, authenticate, isAuthenticated } from '../auth/index';
 import { Redirect } from 'react-router-dom';
 
 const Signin = (props) => {
@@ -9,7 +9,7 @@ const Signin = (props) => {
         password: 'robert123',
         error: '',
         loading: false,
-        redirectToHome: false,
+        redirectToReferrer: false,
     });
     // After explaining message property, let's talk about this from property. Now, when user clicked on dashboard and if he is not signed in first(authenticated), then he will redirect to sign in page, often times we see that when user signin, he goes to that same page from which he was redirected. The same thing here from does. from property comes with location of that page which user was trying to access earlier, so if it has value, we simply push that value using history object. And boom.. user gets back to that page which he was trying to access.
     const { from } = props.location.state || '';
@@ -25,7 +25,7 @@ const Signin = (props) => {
                 props.history.push(from);
                 console.log(from);
             }
-            setValues({ ...values, redirectToHome: true });
+            setValues({ ...values, redirectToReferrer: true });
         }
 
     }
@@ -37,7 +37,8 @@ const Signin = (props) => {
     }
 
     //destructuring state variables
-    const { password, email, error, loading, redirectToHome } = values;
+    const { password, email, error, loading, redirectToReferrer } = values;
+    const { user } = isAuthenticated();
 
     // signin form
     const signinForm = () => {
@@ -74,14 +75,18 @@ const Signin = (props) => {
         );
     }
     const redirectUser = () => {
-        if (redirectToHome) {
-            return <Redirect to="/" />
+        if (redirectToReferrer) {
+            if (user.role === 1) {
+                return <Redirect to="/admin/dashboard" />
+            } else {
+                return <Redirect to="/user/dashboard" />
+            }
         }
     }
 
     // this message is derived from state property of Redirect which is in PrivateRoute Component. So at first this message property does not contain any message, bydefault it is empty. But if user is not signed in, and if he/she clicked on Dashboard which is covered by PrivateRoute(only signed in user can access), then from Redirect component of PrivateRoute, this message property will get message specified over there and  
     const { message } = props.location.state || '';
-    
+
     const redirectToDashboard = () => {
         if (message) {
             return (<div className="alert alert-danger">{props.location.state.message}</div>)
