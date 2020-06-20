@@ -84,7 +84,8 @@ const Signin = (props) => {
         }
     }
 
-    // this message is derived from state property of Redirect which is in PrivateRoute Component. So at first this message property does not contain any message, bydefault it is empty. But if user is not signed in, and if he/she clicked on Dashboard which is covered by PrivateRoute(only signed in user can access), then from Redirect component of PrivateRoute, this message property will get message specified over there and  
+    // this message is derived from state property of Redirect which is in PrivateRoute Component. So at first this message property does not contain any message, bydefault it is empty. But if user is not signed in, and if he/she clicked on Dashboard which is covered by PrivateRoute(only signed in user can access), then from Redirect component of PrivateRoute, this message property will get message specified over there and
+    // updated comment - now we are conditionally checking that if user role is one that go to admin dashboard otherwise user dashboard. So dashboard will only be displayed when user sign in. So now there is no point of below code. But let's just keep it that way. and same in above section, let's keep from code as it is.
     const { message } = props.location.state || '';
 
     const redirectToDashboard = () => {

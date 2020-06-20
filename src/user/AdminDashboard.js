@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const AdminDashboard = () => {
 
     // destructuring user from object derived from below method which return an object from local storage. In that whole object, user is a property with its value as object. So that's why we have destructured user like below.
-    const { user: { name, email, role } } = isAuthenticated()
+    const { user: { name, email } } = isAuthenticated()
 
     const adminLinks = () => {
         return (
@@ -31,7 +31,7 @@ const AdminDashboard = () => {
                 <ul className="list-group">
                     <li className="list-group-item">{name}</li>
                     <li className="list-group-item">{email}</li>
-                    <li className="list-group-item">{role === 1 ? 'Admin' : 'Registered User'}</li>
+                    <li className="list-group-item">Admin</li>
                 </ul>
             </div>
         );
@@ -39,7 +39,7 @@ const AdminDashboard = () => {
 
 
     return (
-        <Layout title="Dashboard" description={'Welcome Back, ' + name} classNameName="container-fluid">
+        <Layout title="Dashboard" description={'Welcome Back, ' + name} className="container-fluid">
             <div className="row">
                 <div className="col-3">{adminLinks()}</div>
                 <div className="col-9">{adminInfo()}</div>

@@ -17,9 +17,14 @@ const Menu = ({ history }) => {
                 <li className="nav-item">
                     <Link className="nav-link" style={isActive(history, '/')} to="/">Home</Link>
                 </li>
-                <li className="nav-item">
-                    <Link className="nav-link" style={isActive(history, 'user/dashboard')} to="user/dashboard">Dashboard</Link>
-                </li>
+                {isAuthenticated() && isAuthenticated().user.role===0 && (<li className="nav-item">
+                    <Link className="nav-link" style={isActive(history, 'user/dashboard')} to="/user/dashboard">Dashboard</Link>
+                </li>)}
+
+                {isAuthenticated() && isAuthenticated().user.role===1 && (<li className="nav-item">
+                    <Link className="nav-link" style={isActive(history, 'admin/dashboard')} to="/admin/dashboard">Dashboard</Link>
+                </li>)}
+                
                 
                 {/* It works because in JavaScript, true && expression always evaluates to expression, and false && expression always evaluates to false. Therefore, if the condition is true, the element right after && will appear in the output. If it is false, React will ignore and skip it. */}
                 {!isAuthenticated() && (
