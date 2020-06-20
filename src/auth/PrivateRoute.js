@@ -20,3 +20,5 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 }
 
 export default PrivateRoute;
+
+//Note : whenever user is signed in as admin, and when he tries to explicitly changes the url from admin/dashboard to user/dashboard, he indeed gets access to that, because it is apparent that, admin itself is an authenticated user, so he does gets an access. But if we don't want that we can write above if-else to check if user is authenticated and his role is 1(admin) then we can  redirect it back to admin/dashboard, else if he is authenticated and role is 0, then go to user/dashboard else simply redirect him to signin page with a message. But let's keep things simple. Let admin be the registered user as well and let him access user/dashboard as well. Afterall admin can be a normal user... :) 
