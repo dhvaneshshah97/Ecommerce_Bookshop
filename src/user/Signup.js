@@ -25,7 +25,7 @@ const Signup = () => {
     // when submit button is clicked, below method is called
     const clickSubmit = async (event) => {
         event.preventDefault();
-        const data = await signup({ name, email, password });
+        const data = await signup({ name:name, email:email, password:password });
         if (data.error) {
             setValues({ ...values, error: data.error, success: false });
         } else {
