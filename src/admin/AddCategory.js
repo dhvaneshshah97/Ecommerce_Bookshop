@@ -15,6 +15,7 @@ const AddCategory = () => {
 
     const handleChange = (e) => {
         setError('');
+        setSuccess('');
         setName(e.target.value);
     }
 
@@ -54,7 +55,7 @@ const AddCategory = () => {
     const checkSuccess = () => {
         if (success) {
             return (
-                <div className="alert alert-success">{name} category is created successfully</div>
+                <div className="alert alert-success">{name} is created successfully</div>
             )
         }
     }
