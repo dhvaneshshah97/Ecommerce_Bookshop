@@ -44,26 +44,19 @@ const AddCategory = () => {
 
     );
 
-    const checkError = () => {
-        if (error) {
-            return (
-                <div className="alert alert-danger">Category should be unique</div>
-            );
-        }
-    }
+    const checkError = () => (
+        <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>Category should be unique</div>
+    )
 
-    const checkSuccess = () => {
-        if (success) {
-            return (
-                <div className="alert alert-success">{name} is created successfully</div>
-            )
-        }
-    }
+    const checkSuccess = () => (
+        <div className="alert alert-success" style={{ display: success ? '' : 'none' }}>Your category {name} is created successfully</div>
+    );
+
 
     const goBack = () => {
         return (
             <div className="mt-5">
-                <Link to="/admin/dashboard" className="text-success"><i className="fas fa-angle-left"/> Back to dashboard</Link>
+                <Link to="/admin/dashboard" className="text-success"><i className="fas fa-angle-left" /> Back to dashboard</Link>
             </div>
         );
     }
