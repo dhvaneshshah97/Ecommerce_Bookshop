@@ -26,7 +26,18 @@ const AddProduct = () => {
     });
 
     // destructuring state variables
-    const { name, description, price, categories, category, shipping, quantity, loading, error, productName, formData, success } = values;
+    const { name, 
+            description, 
+            price, 
+            categories, 
+            category, 
+            shipping, 
+            quantity, 
+            loading, 
+            error, 
+            productName, 
+            formData, 
+            success } = values;
 
     //load categories and set form data
     const init = async () => {
