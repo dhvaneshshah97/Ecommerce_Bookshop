@@ -7,3 +7,11 @@ export const getProducts = async (sortBy) => {
     const response = rawResponse.json();
     return response;
 }
+
+export const getCategories = async () => {
+    const rawResponse = await fetch(`${API}/categories`, {
+        method: "GET",
+    });
+    const response = rawResponse.json();
+    return response;
+}
