@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Layout from './Layout';
 import Card from './Card';
-import { getCategories } from './apiCore';
+import { getCategories, getFilteredProducts } from './apiCore';
 import Checkbox from './Checkbox';
 import { prices } from './fixedPrices';
 import RadioBox from './RadioBox';
@@ -10,11 +10,25 @@ const Shop = () => {
     const [myFilters, setMyFilters] = useState({
         filters: {
             category: [],
-            price: [], 
+            price: [],
         }
     });
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState('');
+    const [limit, setLimit] = useState(6);
+    const [skip, setSkip] = useState(0);
+    const [filteredResults, setFilteredResults] = useState([]);
+
+    const loadFilteredResults = async (newFilters) => {
+        // console.log(newFilters);
+        const data = await getFilteredProducts(skip, limit, newFilters);
+        if (data.error) {
+            setError(data.error)
+        } else {
+            setFilteredResults(data.data);
+        }
+
+    }
 
     const init = async () => {
         const data = await getCategories();
@@ -27,18 +41,22 @@ const Shop = () => {
 
     useEffect(() => {
         init();
+        loadFilteredResults(myFilters.filters);
+        // console.log(filteredResults);
+
     }, []);
 
-    // two aarguments: 1. filters: expects array of category-IDs 2. filterBy: filter by price or filter by category 
+    // two arguments: 1. filters: expects array of category-IDs 2. filterBy: filter by price or filter by category 
     const handleFilters = (filters, filterBy) => {
-        // console.log("SHOP", filters, filterBy);
         const newFilters = { ...myFilters };
         newFilters.filters[filterBy] = filters;
+
         if (filterBy === "price") {
             let pricevalues = handlePrice(filters);
             newFilters.filters[filterBy] = pricevalues;
         }
         setMyFilters(newFilters);
+        loadFilteredResults(myFilters.filters);
     }
 
     // fetch array of prices from fixedPrice
@@ -46,7 +64,7 @@ const Shop = () => {
         const data = prices;
         let array = [];
 
-        for(let key in data) {
+        for (let key in data) {
             if (data[key]._id === parseInt(value)) {
                 array = data[key].array
             }
@@ -58,19 +76,26 @@ const Shop = () => {
         <>
             <Layout title="Shop Page" description="Search and find books of your choice" className="container-fluid">
                 <div className="row">
-                    <div className="col-4">
+                    <div className="col-3">
                         <h4>Filter by categories</h4>
-                        <ul>
-                            <Checkbox categories={categories} handleFilters={handleFilters} />
-                        </ul>
-                        <h4>Filter by price range</h4>
+                        <div className="ml-2">
+                            <ul>
+                                <Checkbox categories={categories} handleFilters={handleFilters} />
+                            </ul>
+                            <h4>Filter by price range</h4>
+                        </div>
                         <div>
                             <RadioBox prices={prices} handleFilters={handleFilters} />
                         </div>
 
                     </div>
-                    <div className="col-4">
-                        {JSON.stringify(myFilters)}
+                    <div className="col-9">
+                        <h2 className="mb-4">Products</h2>
+                        <div className="row">
+                            {filteredResults.map((product, i) => (
+                                <Card key={i} product={product} />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </Layout>

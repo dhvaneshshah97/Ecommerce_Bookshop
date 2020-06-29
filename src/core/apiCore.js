@@ -15,3 +15,17 @@ export const getCategories = async () => {
     const response = rawResponse.json();
     return response;
 }
+
+export const getFilteredProducts = async (skip, limit, filters = {}) => {
+    const data = { limit, skip, filters }
+    const rawResponse = await fetch(`${API}/products/by/search`, {
+        method: "POST",
+        headers: {
+            Accept: 'application/json',
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
+    const response = rawResponse.json();
+    return response;
+}
