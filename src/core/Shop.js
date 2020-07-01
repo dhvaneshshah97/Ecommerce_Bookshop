@@ -33,6 +33,7 @@ const Shop = () => {
     }
 
     const loadMore = async () => {
+        // below line will skip first 6 or the 6 products that were being displayed.and will fetch next six(limit) products and display it.
         let toSkip = skip + limit;
         const data = await getFilteredProducts(toSkip, limit, myFilters.filters);
         if (data.error) {
