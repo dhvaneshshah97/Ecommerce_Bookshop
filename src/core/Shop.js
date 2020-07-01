@@ -18,6 +18,7 @@ const Shop = () => {
     const [limit, setLimit] = useState(6);
     const [skip, setSkip] = useState(0);
     const [filteredResults, setFilteredResults] = useState([]);
+    const [size, setSize] = useState(0);
 
     const loadFilteredResults = async (newFilters) => {
         // console.log(newFilters);
@@ -26,8 +27,30 @@ const Shop = () => {
             setError(data.error)
         } else {
             setFilteredResults(data.data);
+            setSize(data.size);
+            setSkip(0);
         }
+    }
 
+    const loadMore = async () => {
+        let toSkip = skip + limit;
+        const data = await getFilteredProducts(toSkip, limit, myFilters.filters);
+        if (data.error) {
+            setError(data.error)
+        } else {
+            setFilteredResults([...filteredResults, ...data.data]); // ...filteredResults of earlier + new results fetched by load more btn 
+            console.log(data.size)
+            setSize(data.size);
+            setSkip(toSkip);
+        }
+    }
+
+    const loadMoreButton = () => {
+        return (
+            size > 0 && size >= limit && (
+                <button onClick={loadMore} className="btn btn-warning mb-5">Load More</button>
+            )
+        )
     }
 
     const init = async () => {
@@ -96,6 +119,8 @@ const Shop = () => {
                                 <Card key={i} product={product} />
                             ))}
                         </div>
+                        <hr />
+                        {loadMoreButton()}
                     </div>
                 </div>
             </Layout>
