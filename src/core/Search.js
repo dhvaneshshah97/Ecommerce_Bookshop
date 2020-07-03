@@ -54,7 +54,7 @@ const Search = () => {
     const searchForm = () => (
         <div className="container mb-4 " >
             <form onSubmit={searchSubmit} className="mx-auto" style={{width: '800px'}}>
-                <span className="input-group-text">
+                <span className="input-group-text" style={{borderRadius: '0px'}}>
                     <div className="input-group">
                         <div className="input-group-prepend">
                             <select className="btn mr-2" onChange={handleChange} name="category" style={{ paddingRight: '0.5px', verticalAlign: "center" }}>
