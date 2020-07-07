@@ -40,3 +40,15 @@ export const list = async (params) => {
     const response = rawResponse.json();
     return response;
 }
+
+export const read = async (productId) => {
+    const rawResponse = await fetch(`${API}/product/${productId}`, {
+        method: "GET",
+    });
+    if (rawResponse.error) {
+        console.log(rawResponse.error);
+    } else {
+        const response = rawResponse.json();
+        return response;
+    }
+}

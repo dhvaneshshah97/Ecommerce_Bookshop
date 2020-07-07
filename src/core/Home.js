@@ -42,12 +42,20 @@ const Home = (props) => {
                 <Search />
                 <h2 className="mb-4">New Arrival</h2>
                 <div className="row">
-                    {productsByArrival.map((p, i) => (<Card key={i} product={p} />))}
+                    {productsByArrival.map((p, i) => (
+                        <div key={i} className="col-4 mb-3">
+                            <Card key={i} product={p} />
+                        </div>
+                    ))}
                 </div>
 
                 <h2 className="mb-4">Best Sellers</h2>
                 <div className="row">
-                    {productsBySell.map((p, i) => (<Card key={i} product={p} />))}
+                    {productsBySell.map((p, i) => (
+                        <div key={i} className="col-4 mb-3">
+                            <Card key={i} product={p} />
+                        </div>
+                    ))}
                 </div>
 
             </Layout>
