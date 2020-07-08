@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Layout from './Layout';
 import { read } from './apiCore';
 import Card from './Card';
+import ShowImage from './ShowImage';
 // import Card from './Card';
 // import Search from './Search';
 
@@ -18,17 +19,19 @@ const Product = (props) => {
         }
     }
 
-    useEffect(() => {   
+    useEffect(() => {
         const productId = props.match.params.productId;
         loadSingleProduct(productId);
-    },[])
+    }, [])
 
     return (
         <>
             <Layout title={product && product.name} description={product && product.description && product.description.substring(0, 100)} className="container-fluid">
-                <h2 className="mb-4"></h2>
                 <div className="row">
-                    {product && product.description && <Card product={product} showViewProductButton={false} />}
+                    <div className="col offset-md-1">
+                        <ShowImage item={product} url="product" details={true}/>
+                    </div>
+
                 </div>
 
             </Layout>
