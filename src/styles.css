@@ -81,3 +81,9 @@
 .g-font {
     font-family: 'Spartan', sans-serif;
 }
+
+.name {
+    background: #8000ff;
+    color: white;
+    font-weight: bolder;
+}

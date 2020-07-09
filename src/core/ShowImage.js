@@ -7,8 +7,7 @@ const ShowImage = ({ item, url, details= false }) => {
     const haveDetails = (details) => {
         if (details) {
             return {
-                'margin-top':'50px',
-                // 'margin-left':'80px',
+                marginTop:'50px',
                 'border': '0.5px solid black'
             }
         }

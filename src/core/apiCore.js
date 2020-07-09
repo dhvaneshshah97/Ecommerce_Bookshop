@@ -5,16 +5,24 @@ export const getProducts = async (sortBy) => {
     const rawResponse = await fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=6`, {
         method: "GET",
     });
-    const response = rawResponse.json();
-    return response;
+    if (rawResponse.error) {
+        console.log(rawResponse.error);
+    } else {
+        const response = rawResponse.json();
+        return response;
+    }
 }
 
 export const getCategories = async () => {
     const rawResponse = await fetch(`${API}/categories`, {
         method: "GET",
     });
-    const response = rawResponse.json();
-    return response;
+    if (rawResponse.error) {
+        console.log(rawResponse.error);
+    } else {
+        const response = rawResponse.json();
+        return response;
+    }
 }
 
 export const getFilteredProducts = async (skip, limit, filters = {}) => {
@@ -27,8 +35,12 @@ export const getFilteredProducts = async (skip, limit, filters = {}) => {
         },
         body: JSON.stringify(data),
     });
-    const response = rawResponse.json();
-    return response;
+    if (rawResponse.error) {
+        console.log(rawResponse.error);
+    } else {
+        const response = rawResponse.json();
+        return response;
+    }
 }
 
 export const list = async (params) => {
@@ -37,12 +49,28 @@ export const list = async (params) => {
     const rawResponse = await fetch(`${API}/products/search?${query}`, {
         method: "GET",
     });
-    const response = rawResponse.json();
-    return response;
+    if (rawResponse.error) {
+        console.log(rawResponse.error);
+    } else {
+        const response = rawResponse.json();
+        return response;
+    }
 }
 
 export const read = async (productId) => {
     const rawResponse = await fetch(`${API}/product/${productId}`, {
+        method: "GET",
+    });
+    if (rawResponse.error) {
+        console.log(rawResponse.error);
+    } else {
+        const response = rawResponse.json();
+        return response;
+    }
+}
+
+export const listRelated = async (productId) => {
+    const rawResponse = await fetch(`${API}/products/related/${productId}`, {
         method: "GET",
     });
     if (rawResponse.error) {

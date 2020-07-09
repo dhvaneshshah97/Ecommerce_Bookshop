@@ -6,7 +6,7 @@ import moment from 'moment';
 const Card = ({ product, showViewProductButton = true }) => {
     return (
         <div className="card">
-            <div className="card-header">{product.name}</div>
+            <div className="card-header name g-font">{product.name}</div>
             <div className="card-body">
                 <ShowImage item={product} url="product" />
                 <p className="lead mt-2">{product.description.substring(0, 100)}</p>
