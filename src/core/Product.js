@@ -30,6 +30,7 @@ const Product = (props) => {
     }
 
     useEffect(() => {
+        window.scrollTo(0,0);
         const productId = props.match.params.productId;
         loadSingleProduct(productId);
     }, [props])
@@ -44,14 +45,14 @@ const Product = (props) => {
     return (
         <>
             <Layout title={product && product.name} description={product && product.description && product.description.substring(0, 100)} className="container-fluid">
-                <div className="row mb-4">
+                <div className="row">
                     {goBack()}
                     <div className="col-sm-12 col-md-2 offset-md-1">
                         <ShowImage item={product} url="product" details={true} />
                     </div>
                     <div className="col-1"></div>
                     <div className="col-sm-12 col-md-5">
-                        <div className="card">
+                        <div className="card" style={{border:'0.5px #8000ff solid'}}>
                             <h4 className="card-header g-font name">Product Details</h4>
                             <ul className="list-group">
                                 <li className="list-group-item g-font">Book Name: {product.name}</li>

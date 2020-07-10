@@ -10,6 +10,10 @@ const ShowImage = ({ item, url, details= false }) => {
                 marginTop:'50px',
                 'border': '0.5px solid black'
             }
+        } else {
+            return {
+                'border': '0.5px solid black'
+            }
         }
     }
 
@@ -21,7 +25,7 @@ const ShowImage = ({ item, url, details= false }) => {
             className='mb-5'
             style={haveDetails(details)}
 
-        />
+        /> 
     </div>
     )
     
