@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { signout, isAuthenticated } from '../auth/index';
 import Search from './Search';
+import { itemTotal } from './cartHelpers';
 
 const isActive = (history, path) => {
     if (history.location.pathname === path) {
@@ -20,6 +21,9 @@ const Menu = ({ history }) => {
                 </li>
                 <li className="nav-item">
                     <Link className="nav-link" style={isActive(history, '/shop')} to="/shop">Shop</Link>
+                </li>
+                <li className="nav-item">
+                    <Link className="nav-link" style={isActive(history, '/cart')} to="/cart">Cart {/*<i class="fas fa-shopping-cart"></i>*/} <sup><small className="cart-badge">{itemTotal()}</small></sup></Link>
                 </li>
                 {isAuthenticated() && isAuthenticated().user.role === 0 && (<li className="nav-item">
                     <Link className="nav-link" style={isActive(history, '/user/dashboard')} to="/user/dashboard">Dashboard</Link>
