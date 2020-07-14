@@ -31,7 +31,12 @@ const Search = () => {
 
     const searchSubmit = (e) => {
         e.preventDefault();
-        searchData();
+        if (category == "All" && search == '') {
+            setData({...data, results: []});
+        } else {
+            searchData();
+        }
+        
     }
 
     const searchData = async () => {
