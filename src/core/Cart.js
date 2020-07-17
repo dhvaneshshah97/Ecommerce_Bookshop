@@ -20,7 +20,7 @@ const Cart = () => {
                 <hr />
                 {items.map((product, i) => (
                     <div key={i} className="mb-3">
-                        <Card  product={product} showAddToCart={false} />
+                        <Card  product={product} showAddToCart={false} cartUpdate={true} />
                     </div>))}
             </div>
         )
@@ -37,10 +37,10 @@ const Cart = () => {
                 description="Manage your cart items. Add/remove checkout or continue shopping."
                 className="container-fluid">
                 <div className="row">
-                    <div className="col-6">
+                    <div className="col-sm-12 col-md-3">
                         {items.length > 0 ? showItems(items) : noItemMessage()}
                     </div>
-                    <div className="col-6">
+                    <div className="col-sm-12 col-6 offset-3">
                         <p>checkout options</p>
                     </div>
                 </div>

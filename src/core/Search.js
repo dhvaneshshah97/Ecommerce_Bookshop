@@ -32,11 +32,11 @@ const Search = () => {
     const searchSubmit = (e) => {
         e.preventDefault();
         if (category == "All" && search == '') {
-            setData({...data, results: []});
+            setData({ ...data, results: [] });
         } else {
             searchData();
         }
-        
+
     }
 
     const searchData = async () => {
@@ -57,20 +57,22 @@ const Search = () => {
     }
 
     const searchForm = () => (
-        <form onSubmit={searchSubmit} style={{ width: '800px' }} className="mx-auto">
-            <span className="input-group-text" style={{ borderRadius: '0px' }}>
+        <form onSubmit={searchSubmit} style={{ width: '700px' }} className="mx-auto">
+            {/* <span className="input-group-text" style={{ borderRadius: '0px', padding: '0px' }}> */}
+                <span>
                 <div className="input-group">
                     <div className="input-group-prepend">
-                        <select className="btn mr-2" onChange={handleChange} name="category" style={{ paddingRight: '0.5px', verticalAlign: "center" }}>
+                        <select className="btn input-group-text " onChange={handleChange} name="category" style={{ padding: '0px' }} value={category}>
                             <option value="All">All Categories</option>
                             {categories.map((c, i) => (<option key={i} value={c._id}>{c.name}</option>))}
                         </select>
                     </div>
-                    <input type="search" className="form-control" onChange={handleChange} name="search" placeholder="Search product by name" />
+                    <input type="search" className="form-control" onChange={handleChange} name="search" placeholder="Search product by name" style={{ padding: '0 0 0 10px' }} />
+                    <div className="btn input-group-append" style={{ border: 'none', backgroundColor: '#ffc220' }}>
+                        <div style={{ border: 'none' }} onClick={searchSubmit}><i className="fas fa-lg fa-search"></i></div>
+                    </div>
                 </div>
-                <div className="btn input-group-append" style={{ border: 'none' }}>
-                    <div className="input-group-text" style={{ border: 'none' }} onClick={searchSubmit}><i className="fas fa-lg fa-search"></i></div>
-                </div>
+
             </span>
         </form>
     );
@@ -86,9 +88,9 @@ const Search = () => {
 
     const showBooks = (results = []) => (
         <>
-            <h3 className="mt-4 mb-4 col-sm-12">
+            <h2 className="mt-4 mb-4 col-sm-12">
                 {searchMessage(searched, results)}
-            </h3>
+            </h2>
             {results.map((p, i) => (
                 <div className="col-sm-12 col-md-3 mb-3" key={i}>
                     <Card product={p} />
@@ -99,12 +101,12 @@ const Search = () => {
 
     return (
         <>
-        <div className="row">
-            {searchForm()}
-        </div>
-        <div className="row">
-            {showBooks(results)}
-        </div>
+            <div className="row">
+                {searchForm()}
+            </div>
+            <div className="row">
+                {showBooks(results)}
+            </div>
         </>
     )
 }
