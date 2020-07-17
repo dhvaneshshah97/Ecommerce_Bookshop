@@ -27,7 +27,9 @@ const Cart = () => {
     }
 
     const noItemMessage = () => (
-        <h3>Your cart is empty <br /> <Link to="/shop">Continue shopping.</Link></h3>
+        <>
+        <h3>Your cart is empty</h3>  <Link to="/shop"><h4>Continue shopping</h4></Link>
+        </>
     )
 
     return (
@@ -40,7 +42,7 @@ const Cart = () => {
                     <div className="col-sm-12 col-md-3">
                         {items.length > 0 ? showItems(items) : noItemMessage()}
                     </div>
-                    <div className="col-sm-12 col-6 offset-3">
+                    <div className="col-sm-12 col-md-6 offset-3">
                         <p>checkout options</p>
                     </div>
                 </div>

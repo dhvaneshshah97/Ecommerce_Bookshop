@@ -57,10 +57,10 @@ const Search = () => {
     }
 
     const searchForm = () => (
-        <form onSubmit={searchSubmit} style={{ width: '700px' }} className="mx-auto">
+        <form onSubmit={searchSubmit} style={{ width: '700px' }} className="mx-auto" >
             {/* <span className="input-group-text" style={{ borderRadius: '0px', padding: '0px' }}> */}
                 <span>
-                <div className="input-group">
+                <div className="input-group" >
                     <div className="input-group-prepend">
                         <select className="btn input-group-text " onChange={handleChange} name="category" style={{ padding: '0px' }} value={category}>
                             <option value="All">All Categories</option>

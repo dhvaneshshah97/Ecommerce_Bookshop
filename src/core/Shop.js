@@ -49,7 +49,7 @@ const Shop = () => {
     const loadMoreButton = () => {
         return (
             size > 0 && size >= limit && (
-                <button onClick={loadMore} className="btn btn-warning mb-5">Load More</button>
+                <button onClick={loadMore} className="btn btn-warning mb-5" style={{border:'0.7px solid #8000ff'}}>Load More</button>
             )
         )
     }

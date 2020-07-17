@@ -77,7 +77,8 @@ const Product = (props) => {
                                 <li className="list-group-item g-font">Added on {moment(product.createdAt).fromNow()}</li>
                                 <li className="list-group-item g-font">Shipping Available: {product.shipping ? 'Yes' : 'No'}</li>
                                 {product.quantity > 0 ? (<li className="list-group-item"><span className="badge badge-primary badge-pill g-font">In Stock</span></li>) : (<li className="list-group-item"><span className=" badge badge-danger badge-pill g-font">Out of Stock</span></li>)}
-                                <li className="list-group-item"><button className="btn btn-outline-success" onClick={addToCart}>Add to cart</button></li>
+                                {product.quantity > 0 ? <li className="list-group-item"><button className="btn btn-outline-success" onClick={addToCart}>Add to cart</button></li> :
+                                <li className="list-group-item"><button disabled={true} style={{cursor:'not-allowed'}} className="btn btn-outline-success" onClick={addToCart}>Add to cart</button></li> }
                             </ul>
                         </div>
                     </div>
