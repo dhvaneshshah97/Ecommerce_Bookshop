@@ -5,11 +5,12 @@ import Card from './Card';
 import { getCart } from './cartHelpers';
 const Cart = () => {
     const [items, setItems] = useState([]);
+    const [run, setRun] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0,0);
         setItems(getCart());
-    }, []);
+    }, [run]);
 
     const showItems = (items) => {
         return (
@@ -20,7 +21,7 @@ const Cart = () => {
                 <hr />
                 {items.map((product, i) => (
                     <div key={i} className="mb-3">
-                        <Card  product={product} showAddToCart={false} cartUpdate={true} />
+                        <Card  product={product} showAddToCart={false} cartUpdate={true} showRemoveProductButton={true} run={run} setRun={setRun} />
                     </div>))}
             </div>
         )

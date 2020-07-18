@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import ShowImage from './ShowImage';
-import moment from 'moment';
-import { addItem, updateItem } from './cartHelpers';
+import { addItem, updateItem, removeItem } from './cartHelpers';
 
 
 
-const Card = ({ product, showViewProductButton = true, showAddToCart = true, cartUpdate = false }) => {
+const Card = ({
+    product,
+    showViewProductButton = true,
+    showAddToCart = true,
+    cartUpdate = false,
+    showRemoveProductButton = false,
+    run = undefined,
+    setRun = f => f,
+}) => {
     const [redirect, setRedirect] = useState(false);
     const [count, setCount] = useState(product.count);
 
@@ -25,35 +32,47 @@ const Card = ({ product, showViewProductButton = true, showAddToCart = true, car
     }
     const showAddtocartButton = () => {
         if (showAddToCart) {
-            return (
-                <button className="btn btn-outline-warning mt-2 mb-2" onClick={addToCart}>Add to cart</button>
-            );
+            if (product.quantity > 0) {
+                return (
+                    <button className="btn btn-outline-warning mt-2 mb-2" onClick={addToCart}>Add to cart</button>
+                );
+            } else {
+                return (
+                    <button disabled className="btn btn-outline-warning mt-2 mb-2" onClick={addToCart} style={{ cursor: 'not-allowed' }}>Add to cart</button>
+                );
+            }
         }
     }
 
     const handleChange = (event, productId) => {
-
         let { value } = event.target;
         const valueOfQty = parseInt(value);
         setCount(valueOfQty);
         if (valueOfQty >= 1) {
             updateItem(productId, valueOfQty);
         }
-
     }
 
     const showCartUpdate = () => {
         if (cartUpdate) {
             return (
-                <div className="input-group mb-2 " >
+                <div className="input-group mb-2 mt-2" >
                     <div className="input-group-prepend">
-                        <span className="input-group-text" style={{color:'white', fontWeight:'bold', background:'#4d4dff'}}>Qty</span>
+                        <span className="input-group-text" style={{ color: 'white', fontWeight: 'bold', background: '#4d4dff' }}>Qty</span>
                     </div>
-                    <select type="number" onChange={(e) => handleChange(e, product._id)} value={count} style={{width:'70px'}}>
+                    <select type="number" onChange={(e) => handleChange(e, product._id)} value={count} style={{ width: '70px' }}>
                         {quantityArray.map((qty, i) => (<option key={i} val={qty}>{qty}</option>))}
                     </select>
                 </div>
             )
+        }
+    }
+
+    const showRemoveProduct = () => {
+        if (showRemoveProductButton) {
+            return (
+                <button className="btn btn-outline-danger mt-2 mb-2" onClick={() => { removeItem(product._id); setRun(!run) }}>Remove Product</button>
+            );
         }
     }
 
@@ -68,6 +87,7 @@ const Card = ({ product, showViewProductButton = true, showAddToCart = true, car
                 <Link to={`/product/${product._id}`}>
                     {showViewProductButton && (<button className="btn btn-outline-primary mt-2 mb-2 mr-2">View Product</button>)}
                 </Link>
+                {showRemoveProduct()}
                 {showCartUpdate()}
                 {showAddtocartButton()}
             </div>
