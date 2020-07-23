@@ -80,3 +80,21 @@ export const listRelated = async (productId) => {
         return response;
     }
 }
+
+export const getBraintreeClientToken = async (userId, token) => {
+    const rawResponse = await fetch(`${API}/braintree/getToken/${userId}`, {
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            "Content-Type": "application/json",
+            Authorization: `bearer ${token}`,
+        },
+
+    });
+    if (rawResponse.error) {
+        console.log(rawResponse.error);
+    } else {
+        const response = rawResponse.json();
+        return response;
+    }
+}

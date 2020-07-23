@@ -3,6 +3,8 @@ import Layout from './Layout';
 import { Link } from 'react-router-dom';
 import Card from './Card';
 import { getCart } from './cartHelpers';
+import Checkout from './Checkout';
+
 const Cart = () => {
     const [items, setItems] = useState([]);
     const [run, setRun] = useState(false);
@@ -40,11 +42,13 @@ const Cart = () => {
                 description="Manage your cart items. Add/remove checkout or continue shopping."
                 className="container-fluid">
                 <div className="row">
-                    <div className="col-sm-12 col-md-3">
+                    <div className="col-sm-12 col-md-4">
                         {items.length > 0 ? showItems(items) : noItemMessage()}
                     </div>
-                    <div className="col-sm-12 col-md-6 offset-3">
-                        <p>checkout options</p>
+                    <div className="col-sm-12 col-md-5 offset-md-2">
+                        <h2>Cart summary</h2>
+                        <hr />
+                        <Checkout products={items} />
                     </div>
                 </div>
             </Layout>
