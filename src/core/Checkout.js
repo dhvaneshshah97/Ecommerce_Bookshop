@@ -3,8 +3,9 @@ import { getBraintreeClientToken, processPayment } from './apiCore';
 import { isAuthenticated } from '../auth';
 import { Link } from 'react-router-dom';
 import DropIn from 'braintree-web-drop-in-react';
+import { emptyCart } from './cartHelpers';
 
-const Checkout = ({ products }) => {
+const Checkout = ({ products, run = undefined, setRun = f => f }) => {
     const [data, setData] = useState({
         success: false,
         clientToken: null,
@@ -60,16 +61,20 @@ const Checkout = ({ products }) => {
             try {
                 const response = await processPayment(userId, token, paymentData);
                 // console.log(response);
-                setData({...data, success: response.success});
+                setData({ ...data, success: response.success });
                 //empty cart
+                emptyCart(() => {
+                    console.log("payment success and empty cart");
+                    setRun(!run);
+                });
                 // create order
 
             } catch (error) {
-                
+
             }
         } catch (error) {
             // console.log("drop-in error:", error);
-            setData({...data, error: error});
+            setData({ ...data, error: error });
         }
 
     }
@@ -89,9 +94,9 @@ const Checkout = ({ products }) => {
     );
 
     const showSuccess = (
-        <div 
+        <div
             className="alert alert-info"
-            style={{display: data.success ? '' : 'none' }}>
+            style={{ display: data.success ? '' : 'none' }}>
             Thanks! Your payment was successful
         </div>
     )

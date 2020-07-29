@@ -48,7 +48,7 @@ const Cart = () => {
                     <div className="col-sm-12 col-md-5 offset-md-2">
                         <h2>Cart summary</h2>
                         <hr />
-                        <Checkout products={items} />
+                        <Checkout products={items} run={run} setRun={setRun} />
                     </div>
                 </div>
             </Layout>
