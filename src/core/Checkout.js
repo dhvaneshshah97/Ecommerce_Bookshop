@@ -12,6 +12,7 @@ const Checkout = ({ products, run = undefined, setRun = f => f }) => {
         error: '',
         instance: {},
         address: '',
+        loading: false,
     });
 
     const userId = isAuthenticated() && isAuthenticated().user._id;
@@ -45,6 +46,7 @@ const Checkout = ({ products, run = undefined, setRun = f => f }) => {
     }
 
     const buy = async () => {
+        setData({ ...data, loading: true });
         // sent the nonce to your server
         // nonce = data.instance.requestPaymentMethod()
         let nonce;
@@ -66,15 +68,17 @@ const Checkout = ({ products, run = undefined, setRun = f => f }) => {
                 emptyCart(() => {
                     console.log("payment success and empty cart");
                     setRun(!run);
+                    setData({ ...data, loading: false, success: response.success })
                 });
                 // create order
 
             } catch (error) {
-
+                console.log(error);
+                setData({ ...data, loading: false, error: error })
             }
         } catch (error) {
             // console.log("drop-in error:", error);
-            setData({ ...data, error: error });
+            setData({ ...data, error: error, loading: false });
         }
 
     }
@@ -84,7 +88,12 @@ const Checkout = ({ products, run = undefined, setRun = f => f }) => {
             {data.clientToken && products.length > 0 ? (
                 <div>
                     <DropIn
-                        options={{ authorization: data.clientToken }}
+                        options={{
+                            authorization: data.clientToken,
+                            paypal: {
+                                flow: "vault",
+                            }
+                        }}
                         onInstance={(instance) => (data.instance = instance)}
                     />
                     <button className="btn btn-success btn-block" onClick={buy}>Pay</button>
@@ -101,11 +110,18 @@ const Checkout = ({ products, run = undefined, setRun = f => f }) => {
         </div>
     )
 
+    const showLoading = (
+        <div className="btn btn-success mt-2 btn-block" type="button" style={{cursor:'pointer'}}> 
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span className="ml-1" style={{color:'white', fontWeight:'bold'}}>Waiting for successful payment</span>
+        </div>
+    )
+
     return (
         <>
             <h3 className="mb-3">Total: ${getTotal()}</h3>
             {showSuccess}
             {showCheckout()}
+            {data.loading ? showLoading : ''}
         </>
     )
 }
