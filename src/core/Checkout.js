@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getBraintreeClientToken, processPayment } from './apiCore';
+import { getBraintreeClientToken, processPayment, createOrder } from './apiCore';
 import { isAuthenticated } from '../auth';
 import { Link } from 'react-router-dom';
 import DropIn from 'braintree-web-drop-in-react';
@@ -29,7 +29,11 @@ const Checkout = ({ products, run = undefined, setRun = f => f }) => {
 
     useEffect(() => {
         getToken(userId, token)
-    }, [])
+    }, []);
+
+    const handleAddress = event => {
+        setData({ ...data, address: event.target.value });
+    }
 
     const getTotal = () => {
         const total = products.reduce((accumulator, currentValue) => {
@@ -45,7 +49,8 @@ const Checkout = ({ products, run = undefined, setRun = f => f }) => {
         );
     }
 
-    const buy = async () => {
+    const buy = async (e) => {
+        e.preventDefault();
         setData({ ...data, loading: true });
         // sent the nonce to your server
         // nonce = data.instance.requestPaymentMethod()
@@ -60,25 +65,28 @@ const Checkout = ({ products, run = undefined, setRun = f => f }) => {
                 paymentMethodNonce: nonce,
                 amount: getTotal(products),
             }
-            try {
-                const response = await processPayment(userId, token, paymentData);
-                // console.log(response);
-                setData({ ...data, success: response.success });
-                //empty cart
-                emptyCart(() => {
-                    console.log("payment success and empty cart");
-                    setRun(!run);
-                    setData({ ...data, loading: false, success: response.success })
-                });
-                // create order
-
-            } catch (error) {
-                console.log(error);
-                setData({ ...data, loading: false, error: error })
+            
+            const response = await processPayment(userId, token, paymentData);
+            // console.log(response);
+            setData({ ...data, success: response.success });
+            
+            // create order
+            const createOrderData = {
+                products: products,
+                transaction_id: response.transaction.id,
+                amount: parseFloat(response.transaction.amount),
+                address: data.address,
             }
+            await createOrder(userId, token, createOrderData);
+            //empty cart
+            emptyCart(() => {
+                console.log("payment success and empty cart");
+                setRun(!run);
+                setData({ ...data, loading: false, success: response.success })
+            }); 
         } catch (error) {
-            // console.log("drop-in error:", error);
-            setData({ ...data, error: error, loading: false });
+            console.log("drop-in error:", error);
+            setData({ ...data, error: error, loading: false, success: false });
         }
 
     }
@@ -86,7 +94,11 @@ const Checkout = ({ products, run = undefined, setRun = f => f }) => {
     const showDropIn = () => (
         <div>
             {data.clientToken && products.length > 0 ? (
-                <div>
+                <form onSubmit={buy}>
+                    <div className="form-group mb-3">
+                        <label className="text-muted">Delivery Address</label>
+                        <textarea required className="form-control" onChange={handleAddress} value={data.address} placeholder="type your address here..."></textarea>
+                    </div>
                     <DropIn
                         options={{
                             authorization: data.clientToken,
@@ -96,8 +108,8 @@ const Checkout = ({ products, run = undefined, setRun = f => f }) => {
                         }}
                         onInstance={(instance) => (data.instance = instance)}
                     />
-                    <button className="btn btn-success btn-block" onClick={buy}>Pay</button>
-                </div>
+                    <button className="btn btn-success btn-block">Pay</button>
+                </form>
             ) : null}
         </div>
     );
@@ -111,8 +123,8 @@ const Checkout = ({ products, run = undefined, setRun = f => f }) => {
     )
 
     const showLoading = (
-        <div className="btn btn-success mt-2 btn-block" type="button" style={{cursor:'pointer'}}> 
-            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span className="ml-1" style={{color:'white', fontWeight:'bold'}}>Waiting for successful payment</span>
+        <div className="btn btn-success mt-2 btn-block" type="button" style={{ cursor: 'pointer' }}>
+            <span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span className="ml-1" style={{ color: 'white', fontWeight: 'bold' }}>Waiting for successful payment</span>
         </div>
     )
 

@@ -117,3 +117,22 @@ export const processPayment = async (userId, token, paymentData) => {
         return response;
     }
 }
+
+export const createOrder = async (userId, token, createOrderData) => {
+    try {
+        const rawResponse = await fetch(`${API}/order/create/${userId}`, {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json",
+                Authorization: `bearer ${token}`,
+            },
+            body: JSON.stringify({ order: createOrderData }),
+
+        });
+        const response = rawResponse.json();
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
