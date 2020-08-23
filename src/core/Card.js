@@ -60,7 +60,7 @@ const Card = ({
                     <div className="input-group-prepend">
                         <span className="input-group-text" style={{ color: 'white', fontWeight: 'bold', background: '#4d4dff' }}>Qty</span>
                     </div>
-                    <select type="number" onChange={(e) => handleChange(e, product._id)} value={count} style={{ width: '70px' }}>
+                    <select type="number" onChange={(e) => { handleChange(e, product._id); setRun(!run) }} value={count} style={{ width: '70px' }}>
                         {quantityArray.map((qty, i) => (<option key={i} val={qty}>{qty}</option>))}
                     </select>
                 </div>
