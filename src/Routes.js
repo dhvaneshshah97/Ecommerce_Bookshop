@@ -13,6 +13,7 @@ import Shop from './core/Shop';
 import Product from'./core/Product';
 import './styles.css';
 import Cart from './core/Cart';
+import Orders from './admin/Orders';
 
 const Routes = () => {
     return (
@@ -28,6 +29,7 @@ const Routes = () => {
                 <AdminRoute path="/admin/dashboard" component={AdminDashboard} />
                 <AdminRoute path="/create/category" component={AddCategory} />
                 <AdminRoute path="/create/product" component={AddProduct} />
+                <AdminRoute path="/admin/orders" component={Orders} />
             </Switch>
         </BrowserRouter>
     );

@@ -35,3 +35,21 @@ export const getCategories = async () => {
     const response = rawResponse.json();
     return response;
 }
+
+export const listOrders = async (userId, token) => {
+    try {
+        const rawResponse = await fetch(`${API}/order/list/${userId}`, {
+            method: "GET",
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const response = rawResponse.json();
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+
+
+}
