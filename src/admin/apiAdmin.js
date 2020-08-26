@@ -50,6 +50,39 @@ export const listOrders = async (userId, token) => {
     } catch (error) {
         console.log(error);
     }
-
-
 }
+
+export const getStatusValues = async (userId, token) => {
+    try{
+        const rawresponse = await fetch(`${API}/order/status-value/${userId}`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const response = rawresponse.json();
+        return response;
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+export const updateOrderStatus = async (userId, token, orderId, status) => {
+    try {
+        const rawResponse = await fetch(`${API}/order/${orderId}/status/${userId}`, {
+            method: "PUT",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({status, orderId}),
+        });
+        const response = rawResponse.json();
+        return response;
+    } catch(error) {
+        console.log(error);
+    }
+}
+

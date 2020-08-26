@@ -2,32 +2,42 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth/index';
 // import { Link } from 'react-router-dom';
-import { listOrders } from './apiAdmin';
+import { listOrders, getStatusValues, updateOrderStatus } from './apiAdmin';
 import moment from 'moment';
 
 const Orders = () => {
-    const [orders, setOrders] = useState([])
+    const [orders, setOrders] = useState([]);
+    const [statusValues, setStatusValues] = useState([]);
 
     const { user, token } = isAuthenticated()
 
     const loadOrders = async () => {
-        try{
+        try {
             const data = await listOrders(user._id, token);
-            setOrders(data);    
-        } catch(error) {
+            setOrders(data);
+        } catch (error) {
             console.log(error);
         }
-        
+    }
+
+    const loadStatusValues = async () => {
+        try {
+            const data = await getStatusValues(user._id, token);
+            setStatusValues(data);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
-        loadOrders()
-    }, [])
+        loadOrders();
+        loadStatusValues();
+    }, []);
 
     const showOrdersLength = () => {
         if (orders.length > 0) {
-            return(
-            <h1 className="text-danger display-2">Total orders: {orders.length}</h1>
+            return (
+                <h1 className="text-danger display-2">Total orders: {orders.length}</h1>
             )
         } else {
             return <h1 className="text-danger">No orders</h1>
@@ -41,6 +51,27 @@ const Orders = () => {
             </div>
             <input type="text" value={value} className="form-control" readOnly />
         </div>
+    );
+
+    const handleStatusChange = async (e, orderId) => {
+        try {
+            await updateOrderStatus(user._id, token, orderId, e.target.value);
+            loadOrders();
+        } catch (error) {
+            console.log("Status update failed");
+        }
+    }
+
+    const showStatus = (o) => (
+        <div className="form-group">
+            <h3 className="mark mb-4">Status: {o.status}</h3>
+            <select className="form-control" onChange={(e) => handleStatusChange(e, o._id)} >
+                <option>Update Status</option>
+                {statusValues.map((status, sindex) => (
+                    <option key={sindex} value={status}>{status}</option>
+                ))}
+            </select>
+        </div>
     )
 
     return (
@@ -48,17 +79,17 @@ const Orders = () => {
             <div className="row">
                 <div className="col-md-8 offset-md-2">
                     {showOrdersLength()}
-                    
+
                     {orders.map((o, oIndex) => {
                         return (
-                            <div className="mt-5" key={oIndex} style={{borderBottom: "5px solid indigo"}}>
+                            <div className="mt-5" key={oIndex} style={{ borderBottom: "5px solid indigo" }}>
                                 <h2 className="mb-5">
                                     <span className="bg-primary">Order ID: {o._id} </span>
                                 </h2>
 
                                 <ul className="list-group mb-2">
                                     <li className="list-group-item">
-                                        Status: {o.status}
+                                        {showStatus(o)}
                                     </li>
                                     <li className="list-group-item">
                                         Transaction ID: {o.transaction_id}
@@ -82,10 +113,10 @@ const Orders = () => {
                                 </h3>
 
                                 {o.products.map((p, pIndex) => (
-                                    <div className="mb-4" key={pIndex} style={{padding:'20px', border: '1px solid indigo'}}>
+                                    <div className="mb-4" key={pIndex} style={{ padding: '20px', border: '1px solid indigo' }}>
                                         {showInput('Product name', p.name)}
-                                        {showInput('Product price', p.price)}
-                                        {showInput('Product total', p.count)}
+                                        {showInput('Product price', '$' + p.price)}
+                                        {showInput('Quantity', p.count)}
                                         {showInput('Product ID', p._id)}
                                     </div>
                                 ))}
@@ -96,7 +127,7 @@ const Orders = () => {
 
             </div>
         </Layout>
-    ); 
+    );
 }
 
 export default Orders
