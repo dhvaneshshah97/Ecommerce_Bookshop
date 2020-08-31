@@ -48,3 +48,21 @@ export const updateUserLocalStorageInfo = (user, next) => {
         }
     }
 }
+
+export const getPurchaseHistory = async (userId, token) => {
+    try {
+        const rawResponse = await fetch(`${API}/orders/by/user/${userId}`, {
+            method: "GET",
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json",
+                Authorization: `bearer ${token}`,
+            },
+
+        });
+        const response = rawResponse.json();
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
