@@ -74,9 +74,8 @@ const Dashboard = () => {
                                                 <h6>Product name: {p.name}</h6>
                                                 <h6>Product price: ${p.price}</h6>
                                                 <h6>
-                                                    Purchased date: {p.createdAt}
+                                                    Purchased date: {moment(h.createdAt).fromNow()}
                                                 </h6>
-                                                address: {h.address}
                                             </div>
                                         );
                                     })}
@@ -84,7 +83,6 @@ const Dashboard = () => {
                             );
                         })}
                     </li>
-                    {JSON.stringify(history[0])}
                 </ul>
             </div>
         );
