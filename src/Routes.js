@@ -15,6 +15,7 @@ import './styles.css';
 import Cart from './core/Cart';
 import Orders from './admin/Orders';
 import Profile from './user/Profile';
+import ManageProducts from './admin/ManageProducts';
 
 const Routes = () => {
     return (
@@ -32,6 +33,7 @@ const Routes = () => {
                 <AdminRoute path="/create/category" component={AddCategory} />
                 <AdminRoute path="/create/product" component={AddProduct} />
                 <AdminRoute path="/admin/orders" component={Orders} />
+                <AdminRoute path="/admin/products" component={ManageProducts} />
             </Switch>
         </BrowserRouter>
     );

@@ -66,7 +66,7 @@ const Dashboard = () => {
                     <li className="list-group-item">
                         {history.map((h, i) => {
                             return (
-                                <div>
+                                <div key={i}>
                                     <hr />
                                     {h.products.map((p, i) => {
                                         return (
@@ -74,9 +74,9 @@ const Dashboard = () => {
                                                 <h6>Product name: {p.name}</h6>
                                                 <h6>Product price: ${p.price}</h6>
                                                 <h6>
-                                                    Purchased date:{" "}
-                                                    {moment(p.createdAt).fromNow()}
+                                                    Purchased date: {p.createdAt}
                                                 </h6>
+                                                address: {h.address}
                                             </div>
                                         );
                                     })}
@@ -84,6 +84,7 @@ const Dashboard = () => {
                             );
                         })}
                     </li>
+                    {JSON.stringify(history[0])}
                 </ul>
             </div>
         );
