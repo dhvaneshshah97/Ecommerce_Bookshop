@@ -28,28 +28,30 @@ const ManageProducts = () => {
                 console.log(error);
             }
         }
-        
+
     }
 
     useEffect(() => {
         loadProducts();
     }, []);
-    
+
 
     return (
         <>
             <Layout title="Manage Products" description="Perform CRUD on products" className="container-fluid">
                 <div className="row">
                     <div className="col-12">
+                        <h2 className="text-center">Total products {products.length}</h2>
+                        <hr />
                         <ul className="list-group">
                             {
                                 products.map((p, i) => (
                                     <li key={i} className="list-group-item d-flex justify-content-between align-items-center">
                                         <strong>{p.name}</strong>
                                         <Link to={`/admin/product/update/${p._id}`}>
-                                            <span className="badge badge-warning badge-pill">Update</span>
+                                            <button className="btn btn-success">Update</button>
                                         </Link>
-                                        <span className="badge badge-danger badge-pill" onClick={() => destroy(p._id)} style={{cursor:'pointer'}}>Delete</span>
+                                        <button className="btn btn-danger" onClick={() => destroy(p._id)} style={{ cursor: 'pointer' }}>Delete</button>
                                     </li>
                                 ))
                             }

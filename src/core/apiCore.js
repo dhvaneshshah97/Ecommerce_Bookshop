@@ -2,7 +2,7 @@ import { API } from '../config';
 import queryString from 'query-string';
 
 export const getProducts = async (sortBy) => {
-    const rawResponse = await fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=6`, {
+    const rawResponse = await fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=100`, {
         method: "GET",
     });
     if (rawResponse.error) {
