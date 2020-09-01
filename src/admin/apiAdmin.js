@@ -53,7 +53,7 @@ export const listOrders = async (userId, token) => {
 }
 
 export const getStatusValues = async (userId, token) => {
-    try{
+    try {
         const rawresponse = await fetch(`${API}/order/status-value/${userId}`, {
             method: "GET",
             headers: {
@@ -63,7 +63,7 @@ export const getStatusValues = async (userId, token) => {
         });
         const response = rawresponse.json();
         return response;
-    } catch(error) {
+    } catch (error) {
         console.log(error);
     }
 }
@@ -77,12 +77,77 @@ export const updateOrderStatus = async (userId, token, orderId, status) => {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({status, orderId}),
+            body: JSON.stringify({ status, orderId }),
         });
         const response = rawResponse.json();
         return response;
-    } catch(error) {
+    } catch (error) {
         console.log(error);
     }
 }
 
+/**
+ * to perform CRUD on products
+ * get all products
+ * get a single product
+ * update single product
+ * delete a single product
+ */
+
+export const getProducts = async () => {
+    try {
+        const rawResponse = await fetch(`${API}/products`, {
+            method: "GET",
+        });
+        const response = rawResponse.json();
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const deleteProduct = async (productId, userId, token) => {
+    try {
+        const rawResponse = await fetch(`${API}/product/${productId}/${userId}`, {
+            method: "DELETE",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+        });
+        const response = rawResponse.json();
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getProduct = async (productId) => {
+    try {
+        const rawResponse = await fetch(`${API}/product/${productId}`, {
+            method: "GET",
+        });
+        const response = rawResponse.json();
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const updateProduct = async (productId, userId, token, product) => {
+    try {
+        const rawResponse = await fetch(`${API}/product/${productId}/${userId}`, {
+            method: "PUT",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: product,
+        });
+        const response = rawResponse.json();
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
