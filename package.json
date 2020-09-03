@@ -2,11 +2,16 @@
   "name": "ecommerce_frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "10.x",
+    "npm": "6.x"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "braintree-web-drop-in-react": "^1.1.1",
+    "express": "^4.17.1",
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
     "query-string": "^6.13.1",
@@ -19,7 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run compile"
   },
   "eslintConfig": {
     "extends": "react-app"
