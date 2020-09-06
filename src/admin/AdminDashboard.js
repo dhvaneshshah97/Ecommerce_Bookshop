@@ -10,7 +10,7 @@ const AdminDashboard = () => {
 
     const adminLinks = () => {
         return (
-            <div className="card">
+            <div className="card" style={{marginBottom:'25px'}}>
                 <h4 className="card-header">Admin Links</h4>
                 <ul className="list-group">
                     <li className="list-group-item">
@@ -35,8 +35,8 @@ const AdminDashboard = () => {
             <div className="card mb-5">
                 <h3 className="card-header">Admin Information</h3>
                 <ul className="list-group">
-                    <li className="list-group-item">{name}</li>
-                    <li className="list-group-item">{email}</li>
+                    <li className="list-group-item">Name: {name}</li>
+                    <li className="list-group-item">Email: {email}</li>
                     <li className="list-group-item">Admin</li>
                 </ul>
             </div>
@@ -47,8 +47,8 @@ const AdminDashboard = () => {
     return (
         <Layout title="Dashboard" description={'Welcome Back, ' + name} className="container-fluid">
             <div className="row">
-                <div className="col-3">{adminLinks()}</div>
-                <div className="col-9">{adminInfo()}</div>
+                <div className="col-sm-12 col-md-3">{adminLinks()}</div>
+                <div className="col-sm-12 col-md-9">{adminInfo()}</div>
             </div>
         </Layout>
     )

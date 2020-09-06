@@ -102,6 +102,10 @@ export const getProducts = async () => {
     try {
         const rawResponse = await fetch(`${API}/products?limit=100`, {
             method: "GET",
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json",
+            },
         });
         const response = rawResponse.json();
         return response;
@@ -131,6 +135,10 @@ export const getProduct = async (productId) => {
     try {
         const rawResponse = await fetch(`${API}/product/${productId}`, {
             method: "GET",
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json",
+            },
         });
         const response = rawResponse.json();
         return response;

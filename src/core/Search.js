@@ -100,14 +100,14 @@ const Search = () => {
     )
 
     return (
-        <>
+        <div className="container-fluid">
             <div className="row">
                 {searchForm()}
             </div>
             <div className="row">
                 {showBooks(results)}
             </div>
-        </>
+        </div>
     )
 }
 

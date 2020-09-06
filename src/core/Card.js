@@ -77,7 +77,7 @@ const Card = ({
     }
 
     return (
-        <div className="card" style={{ border: '0.2px black solid' }}>
+        <div className="card" style={{border: '0.5px black solid'}}>
             <div className="card-header name g-font">{product.name}</div>
             <div className="card-body">
                 {shouldRedirect(redirect)}

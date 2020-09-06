@@ -39,7 +39,7 @@ const Menu = ({ history }) => {
                     </li>)}
                 </ul>
                 <ul className="navbar-nav ml-auto">
-                {
+                    {
                         !isAuthenticated() && (
                             <>
                                 <li className="nav-item">
@@ -60,8 +60,6 @@ const Menu = ({ history }) => {
 
             </div>
         </nav>
-
-
     )
 }
 

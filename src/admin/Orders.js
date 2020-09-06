@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth/index';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { listOrders, getStatusValues, updateOrderStatus } from './apiAdmin';
 import moment from 'moment';
 
@@ -74,8 +74,17 @@ const Orders = () => {
         </div>
     )
 
+    const goBack = () => {
+        return (
+            <div className="mb-3">
+                <Link to="/admin/dashboard" className="text-success"><i className="fas fa-angle-left" /> Back to dashboard</Link>
+            </div>
+        );
+    }
+
     return (
-        <Layout title="Orders" description={`Hi ${user.name}, you can manage all the orders here`}>
+        <Layout title="Orders" description={`Hi ${user.name}, you can manage all the orders here`} className="container-fluid">
+            {goBack()}
             <div className="row">
                 <div className="col-md-8 offset-md-2">
                     {showOrdersLength()}

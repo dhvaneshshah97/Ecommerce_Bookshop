@@ -38,7 +38,7 @@ const Home = (props) => {
 
     return (
         <>
-            <Layout title="Home Page" description="Node React Ecommerce App" className="container-fluid">
+            <Layout title="Home Page" description="Your One Stop Bookshop" className="container-fluid">
                 <Search />
                 <h2 className="mb-4">New Arrival</h2>
                 <div className="row">

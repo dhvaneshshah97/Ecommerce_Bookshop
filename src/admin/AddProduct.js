@@ -3,6 +3,7 @@ import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth/index';
 // import { Link } from 'react-router-dom';
 import { createProduct, getCategories } from './apiAdmin';
+import { Link } from 'react-router-dom';
 
 const AddProduct = () => {
     const { user, token } = isAuthenticated();
@@ -124,7 +125,8 @@ const AddProduct = () => {
                 </select>
             </div>
 
-            <button className="btn btn-outline-primary">Create Product</button>
+            <button className="btn btn-outline-primary mr-2">Create Product</button>
+            <Link className="btn btn-outline-success" to="/admin/dashboard">Go back</Link>
         </form>
     );
 
@@ -150,7 +152,7 @@ const AddProduct = () => {
         );
 
     return (
-        <Layout title="Add a new Product" description={`Hi ${user.name}, ready to add a new product?`}>
+        <Layout title="Add a new Product" description={`Hi ${user.name}, ready to add a new product?`} className="container-fluid">
             <div className="row">
                 <div className="col-md-8 offset-md-2">
                     {showLoading()}

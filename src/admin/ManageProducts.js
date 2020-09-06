@@ -35,10 +35,18 @@ const ManageProducts = () => {
         loadProducts();
     }, []);
 
+    const goBack = () => {
+        return (
+            <div className="mb-4">
+                <Link to="/admin/dashboard" className="text-success"><i className="fas fa-angle-left" /> Back to dashboard</Link>
+            </div>
+        );
+    }
 
     return (
         <>
             <Layout title="Manage Products" description="Perform CRUD on products" className="container-fluid">
+                {goBack()}
                 <div className="row">
                     <div className="col-12">
                         <h2 className="text-center">Total products {products.length}</h2>
