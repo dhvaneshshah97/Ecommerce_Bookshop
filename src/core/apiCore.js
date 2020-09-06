@@ -5,6 +5,10 @@ export const getProducts = async (sortBy) => {
     try {
         const rawResponse = await fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=100`, {
             method: "GET",
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json",
+            },
         });
 
         const response = rawResponse.json();
@@ -20,6 +24,10 @@ export const getCategories = async () => {
     try {
         const rawResponse = await fetch(`${API}/categories`, {
             method: "GET",
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json",
+            },
         });
 
         const response = rawResponse.json();
@@ -57,6 +65,10 @@ export const list = async (params) => {
         console.log('query', query);
         const rawResponse = await fetch(`${API}/products/search?${query}`, {
             method: "GET",
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json",
+            },
         });
         const response = rawResponse.json();
         return response;
@@ -71,6 +83,10 @@ export const read = async (productId) => {
     try {
         const rawResponse = await fetch(`${API}/product/${productId}`, {
             method: "GET",
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json",
+            },
         });
 
         const response = rawResponse.json();
@@ -86,6 +102,10 @@ export const listRelated = async (productId) => {
     try {
         const rawResponse = await fetch(`${API}/products/related/${productId}`, {
             method: "GET",
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json",
+            },
         });
         const response = rawResponse.json();
         return response;

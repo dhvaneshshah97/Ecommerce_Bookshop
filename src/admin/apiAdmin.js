@@ -31,6 +31,10 @@ export const createProduct = async (userId, token, product) => {
 export const getCategories = async () => {
     const rawResponse = await fetch(`${API}/categories`, {
         method: "GET",
+        headers: {
+            Accept: 'application/json',
+            "Content-Type": "application/json",
+        },
     });
     const response = rawResponse.json();
     return response;
