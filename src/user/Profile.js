@@ -68,7 +68,8 @@ const Profile = (props) => {
                 <label className="text-muted">Password</label>
                 <input type="password" onChange={handleChange} className="form-control" value={password} name="password" />
             </div>
-            <button onClick={clickSubmit} className="btn btn-primary">Update Profile</button>
+            <button onClick={clickSubmit} className="btn btn-primary mr-2">Update Profile</button>
+            <Link className="btn btn-success" to="/user/dashboard">Go back</Link>
         </form>
     )
 
