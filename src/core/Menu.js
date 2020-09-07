@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { signout, isAuthenticated } from '../auth/index';
 import { itemTotal } from './cartHelpers';
+import Scroll from './Scroll';
 
 const isActive = (history, path) => {
     if (history.location.pathname === path) {
@@ -13,8 +14,10 @@ const isActive = (history, path) => {
 
 const Menu = ({ history }) => {
     return (
+        <>
+        <Scroll showBelow={400}/>
         <nav className="navbar navbar-expand-lg navbar-light nav-tabs bg-primary">
-            <Link className="navbar-brand" to="/" style={{ color: 'yellow' }}>eCommerce Book-Shop</Link>
+            <Link className="navbar-brand" to="/" style={{ color: 'white' }}><i className="fas fa-book-reader"></i> eCommerce Book-Shop</Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -53,13 +56,14 @@ const Menu = ({ history }) => {
                     {
                         isAuthenticated() && (
                             <li className="nav-item">
-                                <span className="nav-link" onClick={() => signout(history)} style={{ cursor: 'pointer', color: 'white' }}>Sign out</span>
+                                <span className="nav-link" onClick={() => signout(history)} style={{ cursor: 'pointer', color: 'white' }}>Sign out <i className="fas fa-sign-out-alt"></i></span>
                             </li>)
                     }
                 </ul>
 
             </div>
         </nav>
+        </>
     )
 }
 

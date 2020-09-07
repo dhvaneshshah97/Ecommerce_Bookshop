@@ -49,21 +49,28 @@ const ManageProducts = () => {
                 {goBack()}
                 <div className="row">
                     <div className="col-12">
-                        <h2 className="text-center">Total products {products.length}</h2>
+                        <h2 className="text-center">Total products: {products.length}</h2>
                         <hr />
-                        <ul className="list-group">
-                            {
-                                products.map((p, i) => (
-                                    <li key={i} className="list-group-item d-flex justify-content-between align-items-center">
-                                        <strong>{p.name}</strong>
-                                        <Link to={`/admin/product/update/${p._id}`}>
+                        <table className="table">
+                            <thead className="thead-dark">
+                                <tr>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Update Product</th>
+                                    <th scope="col">Delete Product </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {products.map((p, i) => (
+                                    <tr key={i}>
+                                        <th scope="row">{p.name}</th>
+                                        <td><Link to={`/admin/product/update/${p._id}`}>
                                             <button className="btn btn-success">Update</button>
-                                        </Link>
-                                        <button className="btn btn-danger" onClick={() => destroy(p._id)} style={{ cursor: 'pointer' }}>Delete</button>
-                                    </li>
-                                ))
-                            }
-                        </ul>
+                                        </Link></td>
+                                        <td><button className="btn btn-danger" onClick={() => destroy(p._id)} style={{ cursor: 'pointer' }}>Delete</button></td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </Layout>

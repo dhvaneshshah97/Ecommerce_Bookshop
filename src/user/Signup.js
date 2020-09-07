@@ -74,7 +74,7 @@ const Signup = () => {
 
     // this will be rendered on the screen.
     return (
-        <Layout title="Signup" description="signup to Node React Ecommerce App" className="container col-md-8 offset-md-2">
+        <Layout title="Signup" description="signup to eCommerce Book-shop" className="container col-md-8 offset-md-2">
             {showError()}
             {showSuccess()}
             {signupForm()}

@@ -4,6 +4,7 @@ import { isAuthenticated } from '../auth/index';
 // import { Link } from 'react-router-dom';
 import { getProduct, getCategories, updateProduct } from './apiAdmin';
 import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const UpdateProduct = ({match}) => {
     const { user, token } = isAuthenticated();
@@ -150,7 +151,8 @@ const UpdateProduct = ({match}) => {
                 </select>
             </div>
 
-            <button className="btn btn-outline-primary">Update Product</button>
+            <button className="btn btn-outline-primary mr-2">Update Product</button>
+            <Link className="btn btn-outline-success" to="/admin/products">Go back</Link>
         </form>
     );
 
@@ -183,7 +185,7 @@ const UpdateProduct = ({match}) => {
     }
 
     return (
-        <Layout title="Add a new Product" description={`Hi ${user.name}, ready to add a new product?`}>
+        <Layout title="Add a new Product" description={`Hi ${user.name}, ready to add a new product?`} className="container-fluid">
             <div className="row">
                 <div className="col-md-8 offset-md-2">
                     {showLoading()}

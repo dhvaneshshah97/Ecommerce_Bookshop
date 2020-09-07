@@ -97,7 +97,7 @@ const Signin = (props) => {
     // const { message } = props.location.state || '';
 
     return (
-        <Layout title="Sign-in Page" description="signin to Node React Ecommerce App" className="container col-md-8 offset-md-2">
+        <Layout title="Sign-in Page" description="signin to eCommerce Book-shop" className="container col-md-8 offset-md-2">
             {redirectToDashboard()}
             {showError()}
             {signinForm()}
