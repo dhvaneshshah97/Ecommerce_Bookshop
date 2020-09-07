@@ -99,7 +99,7 @@ const Signin = (props) => {
             <div className="card-body">
                 <h5 className="card-title">Admin credentials</h5>
                 <p className="card-text">email: tom@gmail.com password: tom@123</p>
-                <p className="card-text" style={{color:'red', fontStyle:'italic'}}>*Please do not mess around with admin credentials<br/>if you delete any product for testing, make sure you reupload that product with same details as before</p>
+                <p className="card-text" style={{color:'red', fontStyle:'italic'}}>*Please do not mess around with app<br/>if you delete any product for testing, make sure you reupload that product with same details as before</p>
             </div>
         </div>
     )
