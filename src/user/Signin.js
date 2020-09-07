@@ -69,7 +69,7 @@ const Signin = (props) => {
     // showLoading component
     const showLoading = () => {
         return (
-            <div className="alert alert-success" style={{ display: loading ? '' : 'none' }}>
+            <div className="alert alert-success mt-2" style={{ display: loading ? '' : 'none' }}>
                 Loading...
             </div>
         );
@@ -94,6 +94,16 @@ const Signin = (props) => {
         }
     }
 
+    const adminCredentials = (
+        <div className="card mt-3">
+            <div className="card-body">
+                <h5 className="card-title">Admin credentials</h5>
+                <p className="card-text">email: tom@gmail.com password: tom@123</p>
+                <p className="card-text" style={{color:'red', fontStyle:'italic'}}>*Please do not mess around with admin credentials<br/>if you delete any product for testing, make sure you reupload that product with same details as before</p>
+            </div>
+        </div>
+    )
+
     // const { message } = props.location.state || '';
 
     return (
@@ -102,6 +112,7 @@ const Signin = (props) => {
             {showError()}
             {signinForm()}
             {showLoading()}
+            {adminCredentials}
             {redirectUser()}
         </Layout>
     )

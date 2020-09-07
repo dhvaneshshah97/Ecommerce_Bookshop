@@ -10,7 +10,7 @@ const Cart = () => {
     const [run, setRun] = useState(false);
 
     useEffect(() => {
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
         setItems(getCart());
     }, [run]);
 
@@ -23,7 +23,7 @@ const Cart = () => {
                 <hr />
                 {items.map((product, i) => (
                     <div key={i} className="mb-3">
-                        <Card  product={product} showAddToCart={false} cartUpdate={true} showRemoveProductButton={true} run={run} setRun={setRun} />
+                        <Card product={product} showAddToCart={false} cartUpdate={true} showRemoveProductButton={true} run={run} setRun={setRun} />
                     </div>))}
             </div>
         )
@@ -31,7 +31,7 @@ const Cart = () => {
 
     const noItemMessage = () => (
         <>
-        <h3>Your cart is empty</h3>  <Link to="/shop"><h4>Continue shopping</h4></Link>
+            <h3>Your cart is empty</h3>  <Link to="/shop"><h4>Continue shopping</h4></Link>
         </>
     )
 
@@ -49,6 +49,18 @@ const Cart = () => {
                         <h2>Cart summary</h2>
                         <hr />
                         <Checkout products={items} run={run} setRun={setRun} />
+                        <hr />
+                        <div className="card mt-2 mb-4">
+                            <div className="card-body">
+                                <h5 className="card-title">Test Credit card</h5>
+                                <p className="card-text" style={{color:'red'}}>Card No: 4111 1111 1111 1111 | Exp: 11/22 | CVV: 111</p>
+                            </div>
+                            <hr />
+                            <div className="card-body">
+                                <h5 className="card-title">Test PayPal credentials</h5>
+                                <p className="card-text" style={{color:'red'}}>Email: sb-np7zb2764311@personal.example.com | Password: testuser_123</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Layout>
