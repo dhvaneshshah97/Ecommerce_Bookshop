@@ -15,7 +15,7 @@
     "braintree-web-drop-in-react": "^1.1.1",
     "compression": "^1.7.4",
     "express": "^4.17.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "moment": "^2.27.0",
     "query-string": "^6.13.1",
     "react": "^16.13.1",
